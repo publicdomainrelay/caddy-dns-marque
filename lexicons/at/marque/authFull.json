@@ -1,0 +1,28 @@
+{
+  "defs": {
+    "main": {
+      "detail": "Full access to the DNS and nameservers of your domains",
+      "detail:langs": {},
+      "permissions": [
+        {
+          "action": [
+            "create",
+            "update",
+            "delete"
+          ],
+          "collection": [
+            "at.marque.dns",
+            "at.marque.domain"
+          ],
+          "resource": "repo",
+          "type": "permission"
+        }
+      ],
+      "title": "Marque",
+      "title:langs": {},
+      "type": "permission-set"
+    }
+  },
+  "id": "at.marque.authFull",
+  "lexicon": 1
+}

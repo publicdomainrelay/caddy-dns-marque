@@ -1,0 +1,91 @@
+{
+  "defs": {
+    "entry": {
+      "description": "A single DNS resource record.",
+      "properties": {
+        "name": {
+          "description": "Record name relative to the zone apex. Use '@' for the apex itself.",
+          "maxLength": 253,
+          "type": "string"
+        },
+        "priority": {
+          "description": "Priority value for MX and SRV records.",
+          "type": "integer"
+        },
+        "recordType": {
+          "description": "DNS record type.",
+          "knownValues": [
+            "A",
+            "AAAA",
+            "CNAME",
+            "MX",
+            "TXT",
+            "SRV",
+            "NS",
+            "CAA"
+          ],
+          "type": "string"
+        },
+        "ttl": {
+          "description": "Time-to-live in seconds.",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "value": {
+          "description": "Record value / rdata.",
+          "maxLength": 4096,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "recordType",
+        "value",
+        "ttl"
+      ],
+      "type": "object"
+    },
+    "main": {
+      "description": "Record containing the DNS zone entries for a domain managed by Marque. The record key matches the corresponding at.marque.domain record key (the FQDN).",
+      "key": "any",
+      "record": {
+        "properties": {
+          "createdAt": {
+            "description": "Client-declared timestamp when this record was last written.",
+            "format": "datetime",
+            "type": "string"
+          },
+          "domain": {
+            "description": "Fully qualified domain name this zone belongs to. Denormalized from the subject record so consumers can read the FQDN without resolving the reference.",
+            "maxLength": 253,
+            "type": "string"
+          },
+          "records": {
+            "description": "The DNS resource records in this zone.",
+            "items": {
+              "ref": "#entry",
+              "type": "ref"
+            },
+            "type": "array"
+          },
+          "subject": {
+            "description": "Strong reference to the at.marque.domain record this zone belongs to.",
+            "ref": "com.atproto.repo.strongRef",
+            "type": "ref"
+          }
+        },
+        "required": [
+          "domain",
+          "subject",
+          "records",
+          "createdAt"
+        ],
+        "type": "object"
+      },
+      "type": "record"
+    }
+  },
+  "description": "DNS zone records for a domain where Marque handles the nameservers. Stored in the user's repository.",
+  "id": "at.marque.dns",
+  "lexicon": 1
+}
