@@ -15,7 +15,7 @@ import (
 
 func TestMarqueSingleLine(t *testing.T) {
 	handle := "user.bsky.social"
-	password := "abcd-efgh-ijkl-mnop"
+	password := "test-app-password"
 	config := fmt.Sprintf("marque %s %s", handle, password)
 
 	dispenser := caddyfile.NewTestDispenser(config)
